@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Heart to Heart</string>
+    <string name="general_cancel">Cancel</string>
+    <string name="general_allow">Allow</string>
 </resources>
