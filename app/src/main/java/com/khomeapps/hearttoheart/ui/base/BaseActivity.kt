@@ -93,7 +93,7 @@ abstract class BaseActivity<VM : BaseViewModel, DB : ViewDataBinding> : AppCompa
         if (loadStackCount <= 1) {
             loadStackCount = 0
             indicator?.hide()
-            window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
         } else
             loadStackCount -= 1
     }

@@ -5,6 +5,4 @@ enum class Permissions(
     val code: Int,
     val msgHeader: String,
     val msgText: String
-) {
-
-}
+)
