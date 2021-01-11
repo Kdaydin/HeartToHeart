@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -76,20 +77,20 @@ android {
             applicationIdSuffix ".dev"
             manifestPlaceholders = [buildTypePrefix: "DEV_"]
             dimension "type"
-            buildConfigField("String","VARIANT","\"dev\"")
+            buildConfigField("String", "VARIANT", "\"dev\"")
         }
 
         UAT {
             applicationIdSuffix ".uat"
             manifestPlaceholders = [buildTypePrefix: "UAT_"]
             dimension "type"
-            buildConfigField("String","VARIANT","\"uat\"")
+            buildConfigField("String", "VARIANT", "\"uat\"")
         }
 
         PROD {
             dimension "type"
             manifestPlaceholders = [buildTypePrefix: ""]
-            buildConfigField("String","VARIANT","\"prod\"")
+            buildConfigField("String", "VARIANT", "\"prod\"")
         }
     }
     compileOptions {
@@ -101,7 +102,7 @@ android {
         jvmTarget = '1.8'
     }
 
-    buildFeatures{
+    buildFeatures {
         dataBinding true
     }
 }
@@ -116,4 +117,9 @@ dependencies {
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    implementation platform('com.google.firebase:firebase-bom:26.2.0')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.firebaseui:firebase-ui-auth:6.4.0'
+
 }
