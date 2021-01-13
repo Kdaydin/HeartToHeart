@@ -11,6 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:name=".application.HTHApplication"
+        android:extractNativeLibs="true"
         android:theme="@style/Theme.HTHApp">
         <activity android:name=".ui.splash.SplashActivity">
             <intent-filter>
@@ -19,6 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.dashboard.DashboardActivity"/>
+        <activity android:name=".ui.meeting.MeetingActivity" />
     </application>
 
 </manifest>

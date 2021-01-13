@@ -22,6 +22,9 @@ android {
     def envStorePass = System.getenv("STORE_PASS")
     def envKeyAlias = System.getenv("KEY_ALIAS")
     def envKeyPass = System.getenv("KEY_PASS")
+    def envApiKey = System.getenv("API_KEY")
+    def envApiSecret = System.getenv("API_SECRET")
+
     def keystoreProperties = new Properties()
     if (rootProject.file('local.properties').exists()) {
         rootProject.file('local.properties').withInputStream {
@@ -43,6 +46,18 @@ android {
         def keyPass = keystoreProperties.containsKey("keypass") ? keystoreProperties.getProperty("keypass") : envKeyPass
         return keyPass
     }
+
+    def getApiKey = { ->
+        def apiKey = keystoreProperties.containsKey("apikey") ? keystoreProperties.getProperty("apikey") : envApiKey
+        return apiKey
+    }
+
+    def getApiSecret = { ->
+        def apiSecret = keystoreProperties.containsKey("apisecret") ? keystoreProperties.getProperty("apisecret") : envApiSecret
+        return apiSecret
+    }
+
+
 
     signingConfigs {
         release {
@@ -78,6 +93,8 @@ android {
             manifestPlaceholders = [buildTypePrefix: "DEV_"]
             dimension "type"
             buildConfigField("String", "VARIANT", "\"dev\"")
+            buildConfigField("String", "APIKEY", getApiKey())
+            buildConfigField("String", "APISECRET", getApiSecret())
         }
 
         UAT {
@@ -85,12 +102,16 @@ android {
             manifestPlaceholders = [buildTypePrefix: "UAT_"]
             dimension "type"
             buildConfigField("String", "VARIANT", "\"uat\"")
+            buildConfigField("String", "APIKEY", getApiKey())
+            buildConfigField("String", "APISECRET", getApiSecret())
         }
 
         PROD {
             dimension "type"
             manifestPlaceholders = [buildTypePrefix: ""]
             buildConfigField("String", "VARIANT", "\"prod\"")
+            buildConfigField("String", "APIKEY", getApiKey())
+            buildConfigField("String", "APISECRET", getApiSecret())
         }
     }
     compileOptions {
@@ -123,5 +144,15 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore-ktx'
 
     implementation 'com.firebaseui:firebase-ui-auth:6.4.0'
+
+    //Zoom
+    implementation 'androidx.multidex:multidex:2.0.1'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'com.google.android:flexbox:2.0.1'
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+    implementation 'com.google.crypto.tink:tink-android:1.5.0'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':commonlib')
+    implementation project(':mobilertc')
 
 }
